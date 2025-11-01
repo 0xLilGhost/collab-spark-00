@@ -18,27 +18,29 @@ const Hero = () => {
             </div>
             
             <h1 className="text-5xl lg:text-6xl font-bold leading-tight">
-              Build Your Dream Team{" "}
+              Find Your Perfect{" "}
               <span className="bg-gradient-hero bg-clip-text text-transparent">
-                Together
+                Teammate
               </span>
             </h1>
             
             <p className="text-xl text-muted-foreground max-w-lg">
-              Connect with aspiring entrepreneurs, developers, designers, and innovators. 
-              Find co-founders for startups, teammates for hackathons, or partners for passion projects.
+              Whether you're building a startup or competing in hackathons, 
+              connect with the right people to bring your ideas to life.
             </p>
             
-            <div className="flex flex-wrap gap-4">
-              <Button variant="hero" size="lg" className="text-base">
-                <Users className="h-5 w-5" />
-                Start Connecting
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Button variant="hero" size="lg" className="text-base w-full sm:w-auto">
+                Find Co-founders
               </Button>
-              <Button variant="outline" size="lg" className="text-base">
-                <Search className="h-5 w-5" />
-                Browse Profiles
+              <Button variant="accent" size="lg" className="text-base w-full sm:w-auto">
+                Join Competitions
               </Button>
             </div>
+            
+            <p className="text-sm text-muted-foreground">
+              ✨ Free to join • 🔒 No credit card required
+            </p>
             
             <div className="flex items-center gap-8 pt-4">
               <div>

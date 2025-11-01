@@ -1,5 +1,6 @@
 import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
+import PathSelector from "@/components/PathSelector";
 import Features from "@/components/Features";
 import HowItWorks from "@/components/HowItWorks";
 import CTA from "@/components/CTA";
@@ -11,6 +12,7 @@ const Index = () => {
       <Navigation />
       <main>
         <Hero />
+        <PathSelector />
         <Features />
         <HowItWorks />
         <CTA />
