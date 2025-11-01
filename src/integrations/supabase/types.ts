@@ -14,7 +14,144 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      profiles: {
+        Row: {
+          availability: string | null
+          avatar_url: string | null
+          bio: string | null
+          created_at: string
+          email: string
+          experience_level:
+            | Database["public"]["Enums"]["experience_level"]
+            | null
+          full_name: string | null
+          github_url: string | null
+          graduation_year: number | null
+          hours_per_week: number | null
+          id: string
+          interests: string[] | null
+          languages: string[] | null
+          linkedin_url: string | null
+          location: string | null
+          portfolio_url: string | null
+          role: string | null
+          school: string | null
+          skills: string[] | null
+          timezone: string | null
+          updated_at: string
+          user_type: Database["public"]["Enums"]["user_type"] | null
+        }
+        Insert: {
+          availability?: string | null
+          avatar_url?: string | null
+          bio?: string | null
+          created_at?: string
+          email: string
+          experience_level?:
+            | Database["public"]["Enums"]["experience_level"]
+            | null
+          full_name?: string | null
+          github_url?: string | null
+          graduation_year?: number | null
+          hours_per_week?: number | null
+          id: string
+          interests?: string[] | null
+          languages?: string[] | null
+          linkedin_url?: string | null
+          location?: string | null
+          portfolio_url?: string | null
+          role?: string | null
+          school?: string | null
+          skills?: string[] | null
+          timezone?: string | null
+          updated_at?: string
+          user_type?: Database["public"]["Enums"]["user_type"] | null
+        }
+        Update: {
+          availability?: string | null
+          avatar_url?: string | null
+          bio?: string | null
+          created_at?: string
+          email?: string
+          experience_level?:
+            | Database["public"]["Enums"]["experience_level"]
+            | null
+          full_name?: string | null
+          github_url?: string | null
+          graduation_year?: number | null
+          hours_per_week?: number | null
+          id?: string
+          interests?: string[] | null
+          languages?: string[] | null
+          linkedin_url?: string | null
+          location?: string | null
+          portfolio_url?: string | null
+          role?: string | null
+          school?: string | null
+          skills?: string[] | null
+          timezone?: string | null
+          updated_at?: string
+          user_type?: Database["public"]["Enums"]["user_type"] | null
+        }
+        Relationships: []
+      }
+      teams: {
+        Row: {
+          created_at: string
+          description: string | null
+          equity_offered: boolean | null
+          founder_id: string
+          id: string
+          industry: string | null
+          location: string | null
+          logo_url: string | null
+          looking_for: string | null
+          name: string
+          open_roles: string[] | null
+          pitch_deck_url: string | null
+          stage: string | null
+          team_size: number | null
+          updated_at: string
+          website_url: string | null
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          equity_offered?: boolean | null
+          founder_id: string
+          id?: string
+          industry?: string | null
+          location?: string | null
+          logo_url?: string | null
+          looking_for?: string | null
+          name: string
+          open_roles?: string[] | null
+          pitch_deck_url?: string | null
+          stage?: string | null
+          team_size?: number | null
+          updated_at?: string
+          website_url?: string | null
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          equity_offered?: boolean | null
+          founder_id?: string
+          id?: string
+          industry?: string | null
+          location?: string | null
+          logo_url?: string | null
+          looking_for?: string | null
+          name?: string
+          open_roles?: string[] | null
+          pitch_deck_url?: string | null
+          stage?: string | null
+          team_size?: number | null
+          updated_at?: string
+          website_url?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -23,7 +160,8 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      experience_level: "beginner" | "intermediate" | "experienced"
+      user_type: "competition" | "startup" | "both"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +288,9 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      experience_level: ["beginner", "intermediate", "experienced"],
+      user_type: ["competition", "startup", "both"],
+    },
   },
 } as const
