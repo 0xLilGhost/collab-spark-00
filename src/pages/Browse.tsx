@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import ProfileCard from "@/components/ProfileCard";
@@ -7,6 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Search, Filter } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 import {
   Select,
   SelectContent,
@@ -99,6 +100,63 @@ const sampleTeams = [
 
 const Browse = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const [profiles, setProfiles] = useState<any[]>([]);
+  const [teams, setTeams] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    loadData();
+  }, []);
+
+  const loadData = async () => {
+    setLoading(true);
+    
+    // Load profiles
+    const { data: profilesData } = await supabase
+      .from("profiles")
+      .select("*")
+      .not("bio", "is", null)
+      .limit(20);
+    
+    // Load teams
+    const { data: teamsData } = await supabase
+      .from("teams")
+      .select("*")
+      .limit(20);
+
+    setProfiles(profilesData || sampleProfiles);
+    setTeams(teamsData || sampleTeams);
+    setLoading(false);
+  };
+
+  const filteredProfiles = profiles.filter((profile) =>
+    searchQuery
+      ? profile.full_name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        profile.role?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        profile.skills?.some((skill: string) =>
+          skill.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+      : true
+  );
+
+  const filteredTeams = teams.filter((team) =>
+    searchQuery
+      ? team.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        team.description?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        team.industry?.toLowerCase().includes(searchQuery.toLowerCase())
+      : true
+  );
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="text-2xl font-bold mb-2">Loading...</div>
+          <p className="text-muted-foreground">Finding your perfect matches</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -183,19 +241,53 @@ const Browse = () => {
             </TabsList>
 
             <TabsContent value="people">
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {sampleProfiles.map((profile, index) => (
-                  <ProfileCard key={index} {...profile} />
-                ))}
-              </div>
+              {filteredProfiles.length === 0 ? (
+                <div className="text-center py-12">
+                  <p className="text-muted-foreground">No profiles found. Be the first to create one!</p>
+                </div>
+              ) : (
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {filteredProfiles.map((profile) => (
+                    <ProfileCard
+                      key={profile.id}
+                      name={profile.full_name || "Anonymous"}
+                      role={profile.role || "Not specified"}
+                      school={profile.school}
+                      location={profile.location || "Unknown"}
+                      timezone={profile.timezone || "Not specified"}
+                      languages={profile.languages || []}
+                      skills={profile.skills || []}
+                      bio={profile.bio || "No bio provided"}
+                      avatar={profile.avatar_url || `https://api.dicebear.com/7.x/avataaars/svg?seed=${profile.id}`}
+                      availability={profile.availability || "Not specified"}
+                    />
+                  ))}
+                </div>
+              )}
             </TabsContent>
 
             <TabsContent value="teams">
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {sampleTeams.map((team, index) => (
-                  <TeamCard key={index} {...team} />
-                ))}
-              </div>
+              {filteredTeams.length === 0 ? (
+                <div className="text-center py-12">
+                  <p className="text-muted-foreground">No teams found. Create your team and start recruiting!</p>
+                </div>
+              ) : (
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {filteredTeams.map((team) => (
+                    <TeamCard
+                      key={team.id}
+                      name={team.name}
+                      description={team.description || "No description"}
+                      stage={team.stage || "Not specified"}
+                      industry={team.industry || "General"}
+                      location={team.location || "Remote"}
+                      roles={team.open_roles || []}
+                      teamSize={team.team_size || 1}
+                      logo={team.logo_url}
+                    />
+                  ))}
+                </div>
+              )}
             </TabsContent>
           </Tabs>
         </div>

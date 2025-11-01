@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
-import { Search, Users, Sparkles } from "lucide-react";
+import { Sparkles } from "lucide-react";
 import heroImage from "@/assets/hero-image.jpg";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
@@ -30,12 +31,16 @@ const Hero = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button variant="hero" size="lg" className="text-base w-full sm:w-auto">
-                Find Co-founders
-              </Button>
-              <Button variant="accent" size="lg" className="text-base w-full sm:w-auto">
-                Join Competitions
-              </Button>
+              <a href="#choose-path">
+                <Button variant="hero" size="lg" className="text-base w-full sm:w-auto">
+                  Get Started
+                </Button>
+              </a>
+              <Link to="/browse">
+                <Button variant="accent" size="lg" className="text-base w-full sm:w-auto">
+                  Browse Now
+                </Button>
+              </Link>
             </div>
             
             <p className="text-sm text-muted-foreground">

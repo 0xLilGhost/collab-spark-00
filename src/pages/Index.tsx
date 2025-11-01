@@ -12,9 +12,15 @@ const Index = () => {
       <Navigation />
       <main>
         <Hero />
-        <PathSelector />
-        <Features />
-        <HowItWorks />
+        <div id="choose-path">
+          <PathSelector />
+        </div>
+        <div id="features">
+          <Features />
+        </div>
+        <div id="how-it-works">
+          <HowItWorks />
+        </div>
         <CTA />
       </main>
       <Footer />

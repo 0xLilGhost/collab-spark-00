@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const CTA = () => {
   return (
@@ -22,17 +23,21 @@ const CTA = () => {
               Join thousands of entrepreneurs, developers, and innovators who are building the future together.
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
-              <Button variant="accent" size="lg" className="text-base">
-                Get Started Free
-                <ArrowRight className="h-5 w-5" />
-              </Button>
-              <Button 
-                variant="outline" 
-                size="lg" 
-                className="text-base bg-primary-foreground text-primary hover:bg-primary-foreground/90"
-              >
-                Learn More
-              </Button>
+              <Link to="/auth">
+                <Button variant="accent" size="lg" className="text-base">
+                  Get Started Free
+                  <ArrowRight className="h-5 w-5" />
+                </Button>
+              </Link>
+              <Link to="/browse">
+                <Button 
+                  variant="outline" 
+                  size="lg" 
+                  className="text-base bg-primary-foreground text-primary hover:bg-primary-foreground/90"
+                >
+                  Browse Profiles
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
