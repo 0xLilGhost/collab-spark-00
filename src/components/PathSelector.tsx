@@ -2,17 +2,20 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Trophy, Rocket, Users, Target, Zap, TrendingUp } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const PathSelector = () => {
+  const { t } = useLanguage();
+  
   return (
     <section className="py-20 px-4 bg-gradient-subtle">
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Choose Your Path
+            {t("path.title")}
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Whether you're competing or building the next big thing, find your perfect teammates
+            {t("path.description")}
           </p>
         </div>
 
@@ -26,31 +29,31 @@ const PathSelector = () => {
             </div>
             
             <h3 className="text-2xl font-bold text-center mb-4">
-              Competitions & Hackathons
+              {t("path.competitions")}
             </h3>
             
             <p className="text-muted-foreground text-center mb-6">
-              Find teammates for hackathons, case competitions, innovation challenges, and academic contests
+              {t("path.competitionsDesc")}
             </p>
 
             <div className="space-y-3 mb-8">
               <div className="flex items-start gap-3">
                 <Target className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                <p className="text-sm">Perfect for students and competition enthusiasts</p>
+                <p className="text-sm">{t("path.competitionsFeature1")}</p>
               </div>
               <div className="flex items-start gap-3">
                 <Zap className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                <p className="text-sm">Short-term projects with clear deadlines</p>
+                <p className="text-sm">{t("path.competitionsFeature2")}</p>
               </div>
               <div className="flex items-start gap-3">
                 <Users className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                <p className="text-sm">Match by skills, timezone, and availability</p>
+                <p className="text-sm">{t("path.competitionsFeature3")}</p>
               </div>
             </div>
 
             <Link to="/browse?type=competition" className="block">
               <Button className="w-full" size="lg" variant="hero">
-                Find Competition Teams
+                {t("path.findCompetitionTeams")}
               </Button>
             </Link>
           </Card>
@@ -64,31 +67,31 @@ const PathSelector = () => {
             </div>
             
             <h3 className="text-2xl font-bold text-center mb-4">
-              Startups & Ventures
+              {t("path.startups")}
             </h3>
             
             <p className="text-muted-foreground text-center mb-6">
-              Connect with co-founders and early team members to build your startup from idea to launch
+              {t("path.startupsDesc")}
             </p>
 
             <div className="space-y-3 mb-8">
               <div className="flex items-start gap-3">
                 <Rocket className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
-                <p className="text-sm">For aspiring founders and entrepreneurs</p>
+                <p className="text-sm">{t("path.startupsFeature1")}</p>
               </div>
               <div className="flex items-start gap-3">
                 <TrendingUp className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
-                <p className="text-sm">Long-term commitment and equity partnerships</p>
+                <p className="text-sm">{t("path.startupsFeature2")}</p>
               </div>
               <div className="flex items-start gap-3">
                 <Users className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
-                <p className="text-sm">Find co-founders aligned with your vision</p>
+                <p className="text-sm">{t("path.startupsFeature3")}</p>
               </div>
             </div>
 
             <Link to="/browse?type=startup" className="block">
               <Button className="w-full" size="lg" variant="accent">
-                Find Co-founders
+                {t("path.findCoFounders")}
               </Button>
             </Link>
           </Card>

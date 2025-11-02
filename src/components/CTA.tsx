@@ -1,8 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const CTA = () => {
+  const { t } = useLanguage();
+  
   return (
     <section className="py-20">
       <div className="container mx-auto px-4">
@@ -17,15 +20,15 @@ const CTA = () => {
           
           <div className="relative z-10 text-center max-w-3xl mx-auto">
             <h2 className="text-4xl lg:text-5xl font-bold text-primary-foreground mb-6">
-              Ready to Find Your Co-Founder?
+              {t("cta.title")}
             </h2>
             <p className="text-xl text-primary-foreground/90 mb-8">
-              Join thousands of entrepreneurs, developers, and innovators who are building the future together.
+              {t("cta.description")}
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <Link to="/auth">
                 <Button variant="accent" size="lg" className="text-base">
-                  Get Started Free
+                  {t("cta.getStartedFree")}
                   <ArrowRight className="h-5 w-5" />
                 </Button>
               </Link>
@@ -35,7 +38,7 @@ const CTA = () => {
                   size="lg" 
                   className="text-base bg-primary-foreground text-primary hover:bg-primary-foreground/90"
                 >
-                  Browse Profiles
+                  {t("cta.browseProfiles")}
                 </Button>
               </Link>
             </div>

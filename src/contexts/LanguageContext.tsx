@@ -1,0 +1,314 @@
+import { createContext, useContext, useState, ReactNode } from "react";
+
+type Language = "en" | "zh";
+
+interface LanguageContextType {
+  language: Language;
+  setLanguage: (lang: Language) => void;
+  t: (key: string) => string;
+}
+
+const translations = {
+  en: {
+    // Navigation
+    "nav.browse": "Browse",
+    "nav.account": "Account",
+    "nav.myProfile": "My Profile",
+    "nav.logOut": "Log Out",
+    "nav.signIn": "Sign In",
+    "nav.getStarted": "Get Started",
+    
+    // Hero
+    "hero.badge": "Find Your Perfect Co-Founder",
+    "hero.title1": "Find Your Perfect",
+    "hero.title2": "Teammate",
+    "hero.description": "Whether you're building a startup or competing in hackathons, connect with the right people to bring your ideas to life.",
+    "hero.getStarted": "Get Started",
+    "hero.browseNow": "Browse Now",
+    "hero.freeJoin": "✨ Free to join • 🔒 No credit card required",
+    "hero.activeMembers": "Active Members",
+    "hero.teamsFormed": "Teams Formed",
+    "hero.universities": "Universities",
+    "hero.testimonial": "Found her CTO in 2 days",
+    
+    // PathSelector
+    "path.title": "Choose Your Path",
+    "path.description": "Whether you're competing or building the next big thing, find your perfect teammates",
+    "path.competitions": "Competitions & Hackathons",
+    "path.competitionsDesc": "Find teammates for hackathons, case competitions, innovation challenges, and academic contests",
+    "path.competitionsFeature1": "Perfect for students and competition enthusiasts",
+    "path.competitionsFeature2": "Short-term projects with clear deadlines",
+    "path.competitionsFeature3": "Match by skills, timezone, and availability",
+    "path.findCompetitionTeams": "Find Competition Teams",
+    "path.startups": "Startups & Ventures",
+    "path.startupsDesc": "Connect with co-founders and early team members to build your startup from idea to launch",
+    "path.startupsFeature1": "For aspiring founders and entrepreneurs",
+    "path.startupsFeature2": "Long-term commitment and equity partnerships",
+    "path.startupsFeature3": "Find co-founders aligned with your vision",
+    "path.findCoFounders": "Find Co-founders",
+    
+    // Features
+    "features.title1": "Everything You Need to",
+    "features.title2": "Find Your Team",
+    "features.description": "CoLabNow makes team building simple, fast, and effective for aspiring entrepreneurs and students.",
+    "features.smartMatching": "Smart Matching",
+    "features.smartMatchingDesc": "Find co-founders based on skills, interests, timezone, and goals. Our filters help you discover the perfect match.",
+    "features.teamBuilding": "Team Building",
+    "features.teamBuildingDesc": "Browse teams looking for members or create your own team listing. Perfect for hackathons and startup competitions.",
+    "features.advancedFilters": "Advanced Filters",
+    "features.advancedFiltersDesc": "Filter by role, industry, school, language, location, and more. Find exactly who you're looking for.",
+    "features.directConnect": "Direct Connect",
+    "features.directConnectDesc": "Message potential co-founders directly. Build relationships before committing to collaboration.",
+    "features.globalCommunity": "Global Community",
+    "features.globalCommunityDesc": "Connect with entrepreneurs and innovators from universities and communities worldwide.",
+    "features.fastSimple": "Fast & Simple",
+    "features.fastSimpleDesc": "Create your profile in minutes and start connecting. No complicated onboarding or lengthy forms.",
+    
+    // HowItWorks
+    "how.title": "How It Works",
+    "how.description": "Get started in minutes and find your perfect co-founder or team",
+    "how.step1": "Create Your Profile",
+    "how.step1Desc": "Sign up and tell us about your skills, interests, and what you're looking for in a co-founder or team.",
+    "how.step2": "Browse & Filter",
+    "how.step2Desc": "Search through profiles of entrepreneurs and teams. Use filters to find the perfect match for your needs.",
+    "how.step3": "Connect & Chat",
+    "how.step3Desc": "Reach out to potential co-founders or teams. Have conversations to see if you're aligned.",
+    "how.step4": "Build Together",
+    "how.step4Desc": "Start your journey! Work on your startup, compete in hackathons, or bring your ideas to life.",
+    
+    // CTA
+    "cta.title": "Ready to Find Your Co-Founder?",
+    "cta.description": "Join thousands of entrepreneurs, developers, and innovators who are building the future together.",
+    "cta.getStartedFree": "Get Started Free",
+    "cta.browseProfiles": "Browse Profiles",
+    
+    // Footer
+    "footer.tagline": "Connecting entrepreneurs and innovators to build the future together.",
+    "footer.platform": "Platform",
+    "footer.browse": "Browse",
+    "footer.howItWorks": "How It Works",
+    "footer.successStories": "Success Stories",
+    "footer.resources": "Resources",
+    "footer.blog": "Blog",
+    "footer.faq": "FAQ",
+    "footer.support": "Support",
+    "footer.company": "Company",
+    "footer.about": "About",
+    "footer.privacy": "Privacy",
+    "footer.terms": "Terms",
+    "footer.copyright": "© 2025 CoLabNow. All rights reserved.",
+    
+    // Auth
+    "auth.welcome": "Welcome to CoLabNow",
+    "auth.signIn": "Sign In",
+    "auth.signUp": "Sign Up",
+    "auth.email": "Email",
+    "auth.password": "Password",
+    "auth.signInButton": "Sign In",
+    "auth.signUpButton": "Sign Up",
+    "auth.noAccount": "Don't have an account?",
+    "auth.haveAccount": "Already have an account?",
+    "auth.signUpLink": "Sign up",
+    "auth.signInLink": "Sign in",
+    
+    // Profile
+    "profile.myProfile": "My Profile",
+    "profile.fullName": "Full Name",
+    "profile.school": "School/University",
+    "profile.role": "Role",
+    "profile.bio": "Bio",
+    "profile.location": "Location",
+    "profile.timezone": "Timezone",
+    "profile.languages": "Languages",
+    "profile.skills": "Skills",
+    "profile.linkedin": "LinkedIn URL",
+    "profile.github": "GitHub URL",
+    "profile.portfolio": "Portfolio URL",
+    "profile.availability": "Availability",
+    "profile.available": "Available",
+    "profile.busy": "Busy",
+    "profile.notLooking": "Not Looking",
+    "profile.saveChanges": "Save Changes",
+    "profile.experienceLevel": "Experience Level",
+    "profile.beginner": "Beginner",
+    "profile.intermediate": "Intermediate",
+    "profile.advanced": "Advanced",
+    "profile.expert": "Expert",
+    
+    // Browse
+    "browse.title": "Browse",
+    "browse.profiles": "Profiles",
+    "browse.teams": "Teams",
+    "browse.searchPlaceholder": "Search by name, skills, or role...",
+    "browse.filterByRole": "Filter by Role",
+    "browse.all": "All",
+    "browse.connect": "Connect",
+    "browse.viewTeam": "View Team",
+    "browse.openRoles": "Open Roles",
+    "browse.teamSize": "Team Size",
+    "browse.members": "members",
+  },
+  zh: {
+    // Navigation
+    "nav.browse": "浏览",
+    "nav.account": "账户",
+    "nav.myProfile": "我的资料",
+    "nav.logOut": "退出登录",
+    "nav.signIn": "登录",
+    "nav.getStarted": "开始使用",
+    
+    // Hero
+    "hero.badge": "找到完美的合伙人",
+    "hero.title1": "找到你的完美",
+    "hero.title2": "队友",
+    "hero.description": "无论你是创建初创公司还是参加黑客马拉松，都能找到合适的人来实现你的想法。",
+    "hero.getStarted": "开始使用",
+    "hero.browseNow": "立即浏览",
+    "hero.freeJoin": "✨ 免费加入 • 🔒 无需信用卡",
+    "hero.activeMembers": "活跃会员",
+    "hero.teamsFormed": "组建团队",
+    "hero.universities": "大学",
+    "hero.testimonial": "2天内找到了她的CTO",
+    
+    // PathSelector
+    "path.title": "选择你的路径",
+    "path.description": "无论你是参加比赛还是构建下一个大项目，都能找到完美的队友",
+    "path.competitions": "比赛与黑客马拉松",
+    "path.competitionsDesc": "为黑客马拉松、案例竞赛、创新挑战赛和学术竞赛寻找队友",
+    "path.competitionsFeature1": "非常适合学生和竞赛爱好者",
+    "path.competitionsFeature2": "有明确截止日期的短期项目",
+    "path.competitionsFeature3": "按技能、时区和可用性匹配",
+    "path.findCompetitionTeams": "寻找竞赛团队",
+    "path.startups": "初创公司与创业",
+    "path.startupsDesc": "与联合创始人和早期团队成员联系，从想法到启动建立你的初创公司",
+    "path.startupsFeature1": "适合有抱负的创始人和企业家",
+    "path.startupsFeature2": "长期承诺和股权合作",
+    "path.startupsFeature3": "找到与你愿景一致的联合创始人",
+    "path.findCoFounders": "寻找联合创始人",
+    
+    // Features
+    "features.title1": "你需要的一切",
+    "features.title2": "找到你的团队",
+    "features.description": "CoLabNow让有抱负的企业家和学生的团队建设变得简单、快速和有效。",
+    "features.smartMatching": "智能匹配",
+    "features.smartMatchingDesc": "根据技能、兴趣、时区和目标寻找联合创始人。我们的筛选器帮助你发现完美匹配。",
+    "features.teamBuilding": "团队建设",
+    "features.teamBuildingDesc": "浏览正在寻找成员的团队或创建你自己的团队列表。非常适合黑客马拉松和初创公司竞赛。",
+    "features.advancedFilters": "高级筛选",
+    "features.advancedFiltersDesc": "按角色、行业、学校、语言、位置等筛选。准确找到你要找的人。",
+    "features.directConnect": "直接联系",
+    "features.directConnectDesc": "直接给潜在的联合创始人发消息。在承诺合作之前建立关系。",
+    "features.globalCommunity": "全球社区",
+    "features.globalCommunityDesc": "与来自世界各地大学和社区的企业家和创新者联系。",
+    "features.fastSimple": "快速简单",
+    "features.fastSimpleDesc": "几分钟内创建你的个人资料并开始连接。没有复杂的入职或冗长的表格。",
+    
+    // HowItWorks
+    "how.title": "工作原理",
+    "how.description": "几分钟内开始并找到你的完美联合创始人或团队",
+    "how.step1": "创建你的资料",
+    "how.step1Desc": "注册并告诉我们你的技能、兴趣以及你在联合创始人或团队中寻找什么。",
+    "how.step2": "浏览和筛选",
+    "how.step2Desc": "搜索企业家和团队的资料。使用筛选器找到满足你需求的完美匹配。",
+    "how.step3": "连接和聊天",
+    "how.step3Desc": "联系潜在的联合创始人或团队。进行对话以了解你们是否一致。",
+    "how.step4": "共同建设",
+    "how.step4Desc": "开始你的旅程！在你的初创公司上工作，参加黑客马拉松，或将你的想法变为现实。",
+    
+    // CTA
+    "cta.title": "准备好找到你的联合创始人了吗？",
+    "cta.description": "加入数千名正在共同构建未来的企业家、开发者和创新者。",
+    "cta.getStartedFree": "免费开始",
+    "cta.browseProfiles": "浏览资料",
+    
+    // Footer
+    "footer.tagline": "连接企业家和创新者，共同构建未来。",
+    "footer.platform": "平台",
+    "footer.browse": "浏览",
+    "footer.howItWorks": "工作原理",
+    "footer.successStories": "成功案例",
+    "footer.resources": "资源",
+    "footer.blog": "博客",
+    "footer.faq": "常见问题",
+    "footer.support": "支持",
+    "footer.company": "公司",
+    "footer.about": "关于",
+    "footer.privacy": "隐私",
+    "footer.terms": "条款",
+    "footer.copyright": "© 2025 CoLabNow. 保留所有权利。",
+    
+    // Auth
+    "auth.welcome": "欢迎来到CoLabNow",
+    "auth.signIn": "登录",
+    "auth.signUp": "注册",
+    "auth.email": "邮箱",
+    "auth.password": "密码",
+    "auth.signInButton": "登录",
+    "auth.signUpButton": "注册",
+    "auth.noAccount": "还没有账户？",
+    "auth.haveAccount": "已有账户？",
+    "auth.signUpLink": "注册",
+    "auth.signInLink": "登录",
+    
+    // Profile
+    "profile.myProfile": "我的资料",
+    "profile.fullName": "全名",
+    "profile.school": "学校/大学",
+    "profile.role": "角色",
+    "profile.bio": "个人简介",
+    "profile.location": "位置",
+    "profile.timezone": "时区",
+    "profile.languages": "语言",
+    "profile.skills": "技能",
+    "profile.linkedin": "LinkedIn链接",
+    "profile.github": "GitHub链接",
+    "profile.portfolio": "作品集链接",
+    "profile.availability": "可用性",
+    "profile.available": "可用",
+    "profile.busy": "繁忙",
+    "profile.notLooking": "不寻找",
+    "profile.saveChanges": "保存更改",
+    "profile.experienceLevel": "经验水平",
+    "profile.beginner": "初学者",
+    "profile.intermediate": "中级",
+    "profile.advanced": "高级",
+    "profile.expert": "专家",
+    
+    // Browse
+    "browse.title": "浏览",
+    "browse.profiles": "资料",
+    "browse.teams": "团队",
+    "browse.searchPlaceholder": "按名称、技能或角色搜索...",
+    "browse.filterByRole": "按角色筛选",
+    "browse.all": "全部",
+    "browse.connect": "连接",
+    "browse.viewTeam": "查看团队",
+    "browse.openRoles": "开放职位",
+    "browse.teamSize": "团队规模",
+    "browse.members": "成员",
+  },
+};
+
+const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
+
+export const LanguageProvider = ({ children }: { children: ReactNode }) => {
+  const [language, setLanguage] = useState<Language>("en");
+
+  const t = (key: string): string => {
+    return translations[language][key as keyof typeof translations.en] || key;
+  };
+
+  return (
+    <LanguageContext.Provider value={{ language, setLanguage, t }}>
+      {children}
+    </LanguageContext.Provider>
+  );
+};
+
+export const useLanguage = () => {
+  const context = useContext(LanguageContext);
+  if (!context) {
+    throw new Error("useLanguage must be used within a LanguageProvider");
+  }
+  return context;
+};

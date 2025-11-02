@@ -1,7 +1,10 @@
 import { Users } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Footer = () => {
+  const { t } = useLanguage();
+  
   return (
     <footer className="bg-muted/30 border-t border-border py-12">
       <div className="container mx-auto px-4">
@@ -14,40 +17,40 @@ const Footer = () => {
               </span>
             </div>
             <p className="text-sm text-muted-foreground">
-              Connecting entrepreneurs and innovators to build the future together.
+              {t("footer.tagline")}
             </p>
           </div>
           
           <div>
-            <h4 className="font-semibold mb-4">Platform</h4>
+            <h4 className="font-semibold mb-4">{t("footer.platform")}</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><Link to="/browse" className="hover:text-primary transition-colors">Browse</Link></li>
-              <li><Link to="#" className="hover:text-primary transition-colors">How It Works</Link></li>
-              <li><Link to="#" className="hover:text-primary transition-colors">Success Stories</Link></li>
+              <li><Link to="/browse" className="hover:text-primary transition-colors">{t("footer.browse")}</Link></li>
+              <li><Link to="#" className="hover:text-primary transition-colors">{t("footer.howItWorks")}</Link></li>
+              <li><Link to="#" className="hover:text-primary transition-colors">{t("footer.successStories")}</Link></li>
             </ul>
           </div>
           
           <div>
-            <h4 className="font-semibold mb-4">Resources</h4>
+            <h4 className="font-semibold mb-4">{t("footer.resources")}</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><Link to="#" className="hover:text-primary transition-colors">Blog</Link></li>
-              <li><Link to="#" className="hover:text-primary transition-colors">FAQ</Link></li>
-              <li><Link to="#" className="hover:text-primary transition-colors">Support</Link></li>
+              <li><Link to="#" className="hover:text-primary transition-colors">{t("footer.blog")}</Link></li>
+              <li><Link to="#" className="hover:text-primary transition-colors">{t("footer.faq")}</Link></li>
+              <li><Link to="#" className="hover:text-primary transition-colors">{t("footer.support")}</Link></li>
             </ul>
           </div>
           
           <div>
-            <h4 className="font-semibold mb-4">Company</h4>
+            <h4 className="font-semibold mb-4">{t("footer.company")}</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><Link to="#" className="hover:text-primary transition-colors">About</Link></li>
-              <li><Link to="#" className="hover:text-primary transition-colors">Privacy</Link></li>
-              <li><Link to="#" className="hover:text-primary transition-colors">Terms</Link></li>
+              <li><Link to="#" className="hover:text-primary transition-colors">{t("footer.about")}</Link></li>
+              <li><Link to="#" className="hover:text-primary transition-colors">{t("footer.privacy")}</Link></li>
+              <li><Link to="#" className="hover:text-primary transition-colors">{t("footer.terms")}</Link></li>
             </ul>
           </div>
         </div>
         
         <div className="pt-8 border-t border-border text-center text-sm text-muted-foreground">
-          <p>&copy; 2025 CoLabNow. All rights reserved.</p>
+          <p>{t("footer.copyright")}</p>
         </div>
       </div>
     </footer>

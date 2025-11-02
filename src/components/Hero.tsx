@@ -2,8 +2,11 @@ import { Button } from "@/components/ui/button";
 import { Sparkles } from "lucide-react";
 import heroImage from "@/assets/hero-image.jpg";
 import { Link } from "react-router-dom";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Hero = () => {
+  const { t } = useLanguage();
+  
   return (
     <section className="relative pt-32 pb-20 overflow-hidden">
       {/* Background gradient */}
@@ -15,50 +18,49 @@ const Hero = () => {
           <div className="space-y-8">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full text-primary text-sm font-medium">
               <Sparkles className="h-4 w-4" />
-              Find Your Perfect Co-Founder
+              {t("hero.badge")}
             </div>
             
             <h1 className="text-5xl lg:text-6xl font-bold leading-tight">
-              Find Your Perfect{" "}
+              {t("hero.title1")}{" "}
               <span className="bg-gradient-hero bg-clip-text text-transparent">
-                Teammate
+                {t("hero.title2")}
               </span>
             </h1>
             
             <p className="text-xl text-muted-foreground max-w-lg">
-              Whether you're building a startup or competing in hackathons, 
-              connect with the right people to bring your ideas to life.
+              {t("hero.description")}
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4">
               <a href="#choose-path">
                 <Button variant="hero" size="lg" className="text-base w-full sm:w-auto">
-                  Get Started
+                  {t("hero.getStarted")}
                 </Button>
               </a>
               <Link to="/browse">
                 <Button variant="accent" size="lg" className="text-base w-full sm:w-auto">
-                  Browse Now
+                  {t("hero.browseNow")}
                 </Button>
               </Link>
             </div>
             
             <p className="text-sm text-muted-foreground">
-              ✨ Free to join • 🔒 No credit card required
+              {t("hero.freeJoin")}
             </p>
             
             <div className="flex items-center gap-8 pt-4">
               <div>
                 <div className="text-3xl font-bold text-primary">1,000+</div>
-                <div className="text-sm text-muted-foreground">Active Members</div>
+                <div className="text-sm text-muted-foreground">{t("hero.activeMembers")}</div>
               </div>
               <div>
                 <div className="text-3xl font-bold text-primary">500+</div>
-                <div className="text-sm text-muted-foreground">Teams Formed</div>
+                <div className="text-sm text-muted-foreground">{t("hero.teamsFormed")}</div>
               </div>
               <div>
                 <div className="text-3xl font-bold text-primary">50+</div>
-                <div className="text-sm text-muted-foreground">Universities</div>
+                <div className="text-sm text-muted-foreground">{t("hero.universities")}</div>
               </div>
             </div>
           </div>
@@ -78,7 +80,7 @@ const Hero = () => {
                 <div className="h-12 w-12 rounded-full bg-gradient-accent" />
                 <div>
                   <div className="font-semibold">Sarah Chen</div>
-                  <div className="text-sm text-muted-foreground">Found her CTO in 2 days</div>
+                  <div className="text-sm text-muted-foreground">{t("hero.testimonial")}</div>
                 </div>
               </div>
             </div>

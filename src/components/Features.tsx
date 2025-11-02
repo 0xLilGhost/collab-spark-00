@@ -1,52 +1,55 @@
 import { Search, Users, MessageCircle, Filter, Globe, Zap } from "lucide-react";
 import { Card } from "@/components/ui/card";
-
-const features = [
-  {
-    icon: Search,
-    title: "Smart Matching",
-    description: "Find co-founders based on skills, interests, timezone, and goals. Our filters help you discover the perfect match.",
-  },
-  {
-    icon: Users,
-    title: "Team Building",
-    description: "Browse teams looking for members or create your own team listing. Perfect for hackathons and startup competitions.",
-  },
-  {
-    icon: Filter,
-    title: "Advanced Filters",
-    description: "Filter by role, industry, school, language, location, and more. Find exactly who you're looking for.",
-  },
-  {
-    icon: MessageCircle,
-    title: "Direct Connect",
-    description: "Message potential co-founders directly. Build relationships before committing to collaboration.",
-  },
-  {
-    icon: Globe,
-    title: "Global Community",
-    description: "Connect with entrepreneurs and innovators from universities and communities worldwide.",
-  },
-  {
-    icon: Zap,
-    title: "Fast & Simple",
-    description: "Create your profile in minutes and start connecting. No complicated onboarding or lengthy forms.",
-  },
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Features = () => {
+  const { t } = useLanguage();
+  
+  const features = [
+    {
+      icon: Search,
+      title: t("features.smartMatching"),
+      description: t("features.smartMatchingDesc"),
+    },
+    {
+      icon: Users,
+      title: t("features.teamBuilding"),
+      description: t("features.teamBuildingDesc"),
+    },
+    {
+      icon: Filter,
+      title: t("features.advancedFilters"),
+      description: t("features.advancedFiltersDesc"),
+    },
+    {
+      icon: MessageCircle,
+      title: t("features.directConnect"),
+      description: t("features.directConnectDesc"),
+    },
+    {
+      icon: Globe,
+      title: t("features.globalCommunity"),
+      description: t("features.globalCommunityDesc"),
+    },
+    {
+      icon: Zap,
+      title: t("features.fastSimple"),
+      description: t("features.fastSimpleDesc"),
+    },
+  ];
+
   return (
     <section className="py-20 bg-background">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold mb-4">
-            Everything You Need to{" "}
+            {t("features.title1")}{" "}
             <span className="bg-gradient-hero bg-clip-text text-transparent">
-              Find Your Team
+              {t("features.title2")}
             </span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            CoLabNow makes team building simple, fast, and effective for aspiring entrepreneurs and students.
+            {t("features.description")}
           </p>
         </div>
         

@@ -1,40 +1,43 @@
 import { UserPlus, Search, MessageSquare, Rocket } from "lucide-react";
-
-const steps = [
-  {
-    icon: UserPlus,
-    title: "Create Your Profile",
-    description: "Sign up and tell us about your skills, interests, and what you're looking for in a co-founder or team.",
-    step: "01",
-  },
-  {
-    icon: Search,
-    title: "Browse & Filter",
-    description: "Search through profiles of entrepreneurs and teams. Use filters to find the perfect match for your needs.",
-    step: "02",
-  },
-  {
-    icon: MessageSquare,
-    title: "Connect & Chat",
-    description: "Reach out to potential co-founders or teams. Have conversations to see if you're aligned.",
-    step: "03",
-  },
-  {
-    icon: Rocket,
-    title: "Build Together",
-    description: "Start your journey! Work on your startup, compete in hackathons, or bring your ideas to life.",
-    step: "04",
-  },
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const HowItWorks = () => {
+  const { t } = useLanguage();
+  
+  const steps = [
+    {
+      icon: UserPlus,
+      title: t("how.step1"),
+      description: t("how.step1Desc"),
+      step: "01",
+    },
+    {
+      icon: Search,
+      title: t("how.step2"),
+      description: t("how.step2Desc"),
+      step: "02",
+    },
+    {
+      icon: MessageSquare,
+      title: t("how.step3"),
+      description: t("how.step3Desc"),
+      step: "03",
+    },
+    {
+      icon: Rocket,
+      title: t("how.step4"),
+      description: t("how.step4Desc"),
+      step: "04",
+    },
+  ];
+
   return (
     <section className="py-20 bg-gradient-subtle">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4">How It Works</h2>
+          <h2 className="text-4xl font-bold mb-4">{t("how.title")}</h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Get started in minutes and find your perfect co-founder or team
+            {t("how.description")}
           </p>
         </div>
         
