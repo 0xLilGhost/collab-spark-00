@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
@@ -9,6 +10,7 @@ import { Rocket, LogIn, UserPlus } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Auth = () => {
+  const { t } = useLanguage();
   const [isSignUp, setIsSignUp] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -60,12 +62,12 @@ const Auth = () => {
             <span>CoLabNow</span>
           </Link>
           <h1 className="text-3xl font-bold mb-2">
-            {isSignUp ? "Create an account" : "Welcome back"}
+            {isSignUp ? t("auth.signUp") : t("auth.welcome")}
           </h1>
           <p className="text-muted-foreground">
             {isSignUp
-              ? "Join CoLabNow and start building your dream team"
-              : "Log in to continue your journey"}
+              ? t("auth.signUpDesc")
+              : t("auth.signInDesc")}
           </p>
         </div>
 
@@ -73,7 +75,7 @@ const Auth = () => {
           <form onSubmit={handleSubmit} className="space-y-4">
             {isSignUp && (
               <div className="space-y-2">
-                <Label htmlFor="fullName">Full Name</Label>
+                <Label htmlFor="fullName">{t("auth.fullName")}</Label>
                 <Input
                   id="fullName"
                   type="text"
@@ -86,7 +88,7 @@ const Auth = () => {
             )}
 
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email">{t("auth.email")}</Label>
               <Input
                 id="email"
                 type="email"
@@ -98,7 +100,7 @@ const Auth = () => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password">{t("auth.password")}</Label>
               <Input
                 id="password"
                 type="password"
@@ -110,23 +112,23 @@ const Auth = () => {
               />
               {isSignUp && (
                 <p className="text-xs text-muted-foreground">
-                  Must be at least 6 characters
+                  {t("auth.passwordHint")}
                 </p>
               )}
             </div>
 
             <Button type="submit" className="w-full" disabled={loading}>
               {loading ? (
-                "Loading..."
+                t("auth.loading")
               ) : isSignUp ? (
                 <>
                   <UserPlus className="h-4 w-4" />
-                  Sign Up
+                  {t("auth.signUpButton")}
                 </>
               ) : (
                 <>
                   <LogIn className="h-4 w-4" />
-                  Log In
+                  {t("auth.signInButton")}
                 </>
               )}
             </Button>
@@ -139,14 +141,14 @@ const Auth = () => {
               className="text-primary hover:underline"
             >
               {isSignUp
-                ? "Already have an account? Log in"
-                : "Don't have an account? Sign up"}
+                ? t("auth.haveAccount") + " " + t("auth.signInLink")
+                : t("auth.noAccount") + " " + t("auth.signUpLink")}
             </button>
           </div>
         </Card>
 
         <p className="text-center text-sm text-muted-foreground mt-6">
-          By continuing, you agree to our Terms of Service and Privacy Policy
+          {t("auth.terms")}
         </p>
       </div>
     </div>

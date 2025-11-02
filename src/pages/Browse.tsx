@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Search, Filter } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { useLanguage } from "@/contexts/LanguageContext";
 import {
   Select,
   SelectContent,
@@ -99,6 +100,7 @@ const sampleTeams = [
 ];
 
 const Browse = () => {
+  const { t } = useLanguage();
   const [searchQuery, setSearchQuery] = useState("");
   const [profiles, setProfiles] = useState<any[]>([]);
   const [teams, setTeams] = useState<any[]>([]);
@@ -151,8 +153,8 @@ const Browse = () => {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <div className="text-2xl font-bold mb-2">Loading...</div>
-          <p className="text-muted-foreground">Finding your perfect matches</p>
+          <div className="text-2xl font-bold mb-2">{t("browse.loading")}</div>
+          <p className="text-muted-foreground">{t("browse.loadingDesc")}</p>
         </div>
       </div>
     );
@@ -167,13 +169,13 @@ const Browse = () => {
           {/* Header */}
           <div className="mb-12">
             <h1 className="text-4xl font-bold mb-4">
-              Discover Your{" "}
+              {t("browse.discover")}{" "}
               <span className="bg-gradient-hero bg-clip-text text-transparent">
-                Perfect Match
+                {t("browse.perfectMatch")}
               </span>
             </h1>
             <p className="text-xl text-muted-foreground">
-              Browse profiles of aspiring entrepreneurs and teams looking for members
+              {t("browse.browseDesc")}
             </p>
           </div>
 
@@ -183,7 +185,7 @@ const Browse = () => {
               <div className="flex-1 relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                 <Input
-                  placeholder="Search by name, skill, or keyword..."
+                  placeholder={t("browse.searchPlaceholder")}
                   className="pl-10"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
@@ -191,26 +193,26 @@ const Browse = () => {
               </div>
               <Button variant="outline" className="gap-2">
                 <Filter className="h-4 w-4" />
-                Filters
+                {t("browse.filters")}
               </Button>
             </div>
 
             <div className="flex flex-wrap gap-4">
               <Select>
                 <SelectTrigger className="w-[180px]">
-                  <SelectValue placeholder="Role" />
+                  <SelectValue placeholder={t("browse.role")} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="developer">Developer</SelectItem>
-                  <SelectItem value="designer">Designer</SelectItem>
-                  <SelectItem value="business">Business</SelectItem>
-                  <SelectItem value="marketing">Marketing</SelectItem>
+                  <SelectItem value="developer">{t("browse.developer")}</SelectItem>
+                  <SelectItem value="designer">{t("browse.designer")}</SelectItem>
+                  <SelectItem value="business">{t("browse.business")}</SelectItem>
+                  <SelectItem value="marketing">{t("browse.marketing")}</SelectItem>
                 </SelectContent>
               </Select>
 
               <Select>
                 <SelectTrigger className="w-[180px]">
-                  <SelectValue placeholder="Industry" />
+                  <SelectValue placeholder={t("browse.industry")} />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="ai">AI/ML</SelectItem>
@@ -222,12 +224,12 @@ const Browse = () => {
 
               <Select>
                 <SelectTrigger className="w-[180px]">
-                  <SelectValue placeholder="Availability" />
+                  <SelectValue placeholder={t("browse.availability")} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="fulltime">Full-time</SelectItem>
-                  <SelectItem value="parttime">Part-time</SelectItem>
-                  <SelectItem value="flexible">Flexible</SelectItem>
+                  <SelectItem value="fulltime">{t("browse.fulltime")}</SelectItem>
+                  <SelectItem value="parttime">{t("browse.parttime")}</SelectItem>
+                  <SelectItem value="flexible">{t("browse.flexible")}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -236,14 +238,14 @@ const Browse = () => {
           {/* Tabs for People and Teams */}
           <Tabs defaultValue="people" className="w-full">
             <TabsList className="mb-8">
-              <TabsTrigger value="people">People</TabsTrigger>
-              <TabsTrigger value="teams">Teams</TabsTrigger>
+              <TabsTrigger value="people">{t("browse.profiles")}</TabsTrigger>
+              <TabsTrigger value="teams">{t("browse.teams")}</TabsTrigger>
             </TabsList>
 
             <TabsContent value="people">
               {filteredProfiles.length === 0 ? (
                 <div className="text-center py-12">
-                  <p className="text-muted-foreground">No profiles found. Be the first to create one!</p>
+                  <p className="text-muted-foreground">{t("browse.noProfiles")}</p>
                 </div>
               ) : (
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -269,7 +271,7 @@ const Browse = () => {
             <TabsContent value="teams">
               {filteredTeams.length === 0 ? (
                 <div className="text-center py-12">
-                  <p className="text-muted-foreground">No teams found. Create your team and start recruiting!</p>
+                  <p className="text-muted-foreground">{t("browse.noTeams")}</p>
                 </div>
               ) : (
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">

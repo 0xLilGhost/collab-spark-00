@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -15,6 +16,7 @@ import { Badge } from "@/components/ui/badge";
 import { X } from "lucide-react";
 
 const Profile = () => {
+  const { t } = useLanguage();
   const { user, loading: authLoading } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -105,19 +107,19 @@ const Profile = () => {
   };
 
   if (authLoading || !profile) {
-    return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
+    return <div className="min-h-screen flex items-center justify-center">{t("profile.loading")}</div>;
   }
 
   return (
     <div className="min-h-screen">
       <Navigation />
       <main className="container mx-auto px-4 py-24 max-w-3xl">
-        <h1 className="text-3xl font-bold mb-8">Your Profile</h1>
+        <h1 className="text-3xl font-bold mb-8">{t("profile.myProfile")}</h1>
         
         <Card className="p-6">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
-              <Label htmlFor="full_name">Full Name</Label>
+              <Label htmlFor="full_name">{t("profile.fullName")}</Label>
               <Input
                 id="full_name"
                 value={profile.full_name || ""}
@@ -127,7 +129,7 @@ const Profile = () => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="user_type">I'm interested in</Label>
+              <Label htmlFor="user_type">{t("profile.interestedIn")}</Label>
               <Select
                 value={profile.user_type || "both"}
                 onValueChange={(value) => setProfile({ ...profile, user_type: value })}
@@ -136,15 +138,15 @@ const Profile = () => {
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="competition">Competitions & Hackathons</SelectItem>
-                  <SelectItem value="startup">Startups & Ventures</SelectItem>
-                  <SelectItem value="both">Both</SelectItem>
+                  <SelectItem value="competition">{t("profile.competitions")}</SelectItem>
+                  <SelectItem value="startup">{t("profile.startups")}</SelectItem>
+                  <SelectItem value="both">{t("profile.both")}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="role">Your Role</Label>
+              <Label htmlFor="role">{t("profile.role")}</Label>
               <Input
                 id="role"
                 placeholder="e.g., Developer, Designer, PM"
@@ -155,7 +157,7 @@ const Profile = () => {
 
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="school">School/University</Label>
+                <Label htmlFor="school">{t("profile.school")}</Label>
                 <Input
                   id="school"
                   value={profile.school || ""}
@@ -164,7 +166,7 @@ const Profile = () => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="location">Location</Label>
+                <Label htmlFor="location">{t("profile.location")}</Label>
                 <Input
                   id="location"
                   placeholder="City, Country"
@@ -175,10 +177,10 @@ const Profile = () => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="bio">Bio</Label>
+              <Label htmlFor="bio">{t("profile.bio")}</Label>
               <Textarea
                 id="bio"
-                placeholder="Tell us about yourself..."
+                placeholder={t("profile.bioPlaceholder")}
                 value={profile.bio || ""}
                 onChange={(e) => setProfile({ ...profile, bio: e.target.value })}
                 rows={4}
@@ -186,16 +188,16 @@ const Profile = () => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="skills">Skills</Label>
+              <Label htmlFor="skills">{t("profile.skills")}</Label>
               <div className="flex gap-2">
                 <Input
                   id="skills"
-                  placeholder="Add a skill..."
+                  placeholder={t("profile.addSkill")}
                   value={skillInput}
                   onChange={(e) => setSkillInput(e.target.value)}
                   onKeyPress={(e) => e.key === "Enter" && (e.preventDefault(), addSkill())}
                 />
-                <Button type="button" onClick={addSkill}>Add</Button>
+                <Button type="button" onClick={addSkill}>{t("profile.add")}</Button>
               </div>
               <div className="flex flex-wrap gap-2 mt-2">
                 {profile.skills?.map((skill: string) => (
@@ -211,7 +213,7 @@ const Profile = () => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="linkedin_url">LinkedIn URL</Label>
+              <Label htmlFor="linkedin_url">{t("profile.linkedin")}</Label>
               <Input
                 id="linkedin_url"
                 type="url"
@@ -222,7 +224,7 @@ const Profile = () => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="github_url">GitHub URL</Label>
+              <Label htmlFor="github_url">{t("profile.github")}</Label>
               <Input
                 id="github_url"
                 type="url"
@@ -233,7 +235,7 @@ const Profile = () => {
             </div>
 
             <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? "Saving..." : "Save Profile"}
+              {loading ? t("profile.saving") : t("profile.saveChanges")}
             </Button>
           </form>
         </Card>
