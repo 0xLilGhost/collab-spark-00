@@ -73,10 +73,7 @@ const Messages = () => {
     setLoading(true);
     const { data, error } = await supabase
       .from("messages")
-      .select(`
-        *,
-        sender:profiles!messages_sender_id_fkey(full_name, avatar_url)
-      `)
+      .select("*")
       .eq("recipient_id", user.id)
       .order("created_at", { ascending: false });
 
@@ -86,8 +83,24 @@ const Messages = () => {
         description: error.message,
         variant: "destructive",
       });
+      setMessages([]);
     } else {
-      setMessages(data as Message[]);
+      // Fetch sender profiles separately
+      const messagesWithSenders = await Promise.all(
+        (data || []).map(async (msg) => {
+          const { data: senderData } = await supabase
+            .from("profiles")
+            .select("full_name, avatar_url")
+            .eq("id", msg.sender_id)
+            .single();
+          
+          return {
+            ...msg,
+            sender: senderData || { full_name: "Unknown", avatar_url: "" }
+          };
+        })
+      );
+      setMessages(messagesWithSenders);
     }
     setLoading(false);
   };
