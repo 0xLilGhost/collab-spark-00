@@ -12,6 +12,7 @@ const translations = {
   en: {
     // Navigation
     "nav.browse": "Browse",
+    "nav.messages": "Messages",
     "nav.account": "Account",
     "nav.myProfile": "My Profile",
     "nav.logOut": "Log Out",
