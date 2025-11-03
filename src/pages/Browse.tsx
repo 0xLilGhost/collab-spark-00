@@ -252,6 +252,7 @@ const Browse = () => {
                   {filteredProfiles.map((profile) => (
                     <ProfileCard
                       key={profile.id}
+                      id={profile.id}
                       name={profile.full_name || "Anonymous"}
                       role={profile.role || "Not specified"}
                       school={profile.school}

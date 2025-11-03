@@ -14,6 +14,36 @@ export type Database = {
   }
   public: {
     Tables: {
+      messages: {
+        Row: {
+          created_at: string
+          id: string
+          message: string
+          read: boolean
+          recipient_id: string
+          sender_id: string
+          subject: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          message: string
+          read?: boolean
+          recipient_id: string
+          sender_id: string
+          subject?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          message?: string
+          read?: boolean
+          recipient_id?: string
+          sender_id?: string
+          subject?: string | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           availability: string | null

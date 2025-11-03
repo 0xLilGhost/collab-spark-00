@@ -1,9 +1,11 @@
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { MapPin, Clock, Languages, MessageCircle } from "lucide-react";
+import { MapPin, Clock, Languages } from "lucide-react";
+import MessageDialog from "./MessageDialog";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface ProfileCardProps {
+  id: string;
   name: string;
   role: string;
   school?: string;
@@ -17,6 +19,7 @@ interface ProfileCardProps {
 }
 
 const ProfileCard = ({
+  id,
   name,
   role,
   school,
@@ -28,6 +31,7 @@ const ProfileCard = ({
   avatar,
   availability,
 }: ProfileCardProps) => {
+  const { t } = useLanguage();
   return (
     <Card className="p-6 hover:shadow-card-hover transition-all duration-300 border-border">
       <div className="flex items-start gap-4 mb-4">
@@ -73,10 +77,12 @@ const ProfileCard = ({
         )}
       </div>
       
-      <Button className="w-full" variant="outline">
-        <MessageCircle className="h-4 w-4" />
-        Connect
-      </Button>
+      <MessageDialog
+        recipientId={id}
+        recipientName={name}
+        buttonText={t("browse.connect")}
+        className="w-full"
+      />
     </Card>
   );
 };
