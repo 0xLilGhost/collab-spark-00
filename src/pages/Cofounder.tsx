@@ -31,11 +31,11 @@ const Cofounder = () => {
   const loadData = async () => {
     setLoading(true);
     
-    // Load profiles
+    // Load profiles interested in startups (startup or both)
     const { data: profilesData } = await supabase
       .from("profiles")
       .select("*")
-      .not("bio", "is", null)
+      .or("user_type.eq.startup,user_type.eq.both,user_type.is.null")
       .limit(20);
     
     // Load startup teams only

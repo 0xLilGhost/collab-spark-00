@@ -31,11 +31,11 @@ const Competition = () => {
   const loadData = async () => {
     setLoading(true);
     
-    // Load profiles
+    // Load profiles interested in competitions (competition or both)
     const { data: profilesData } = await supabase
       .from("profiles")
       .select("*")
-      .not("bio", "is", null)
+      .or("user_type.eq.competition,user_type.eq.both,user_type.is.null")
       .limit(20);
     
     // Load competition teams only
