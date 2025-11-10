@@ -7,6 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Search, Filter, Trophy } from "lucide-react";
+import CreateTeamDialog from "@/components/CreateTeamDialog";
 import { supabase } from "@/integrations/supabase/client";
 import { useLanguage } from "@/contexts/LanguageContext";
 import {
@@ -102,7 +103,8 @@ const Competition = () => {
 
           {/* Search and Filters */}
           <div className="mb-8 space-y-4">
-            <div className="flex gap-4">
+            <div className="flex gap-4 items-center">
+              <CreateTeamDialog type="competition" onSuccess={loadData} />
               <div className="flex-1 relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                 <Input
