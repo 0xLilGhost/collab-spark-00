@@ -51,7 +51,7 @@ const PathSelector = () => {
               </div>
             </div>
 
-            <Link to="/browse?type=competition" className="block">
+            <Link to="/competition" className="block">
               <Button className="w-full" size="lg" variant="hero">
                 {t("path.findCompetitionTeams")}
               </Button>
@@ -89,7 +89,7 @@ const PathSelector = () => {
               </div>
             </div>
 
-            <Link to="/browse?type=startup" className="block">
+            <Link to="/cofounder" className="block">
               <Button className="w-full" size="lg" variant="accent">
                 {t("path.findCoFounders")}
               </Button>

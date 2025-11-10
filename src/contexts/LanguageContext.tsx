@@ -219,6 +219,25 @@ const translations = {
     "messages.replySentDesc": "Your reply has been sent successfully!",
     "messages.selectMessage": "Select a message to view",
     "messages.loadError": "Failed to load messages",
+
+    // Cofounder Page
+    "cofounder.title": "Find Co-founders",
+    "cofounder.description": "Connect with entrepreneurs and build your startup together",
+    "cofounder.startups": "Startups",
+    "cofounder.cofounders": "Co-founders",
+    "cofounder.noStartups": "No startups found. Be the first to create one!",
+
+    // Competition Page
+    "competition.title": "Find Competition Teams",
+    "competition.description": "Join teams for hackathons, case competitions, and challenges",
+    "competition.competitions": "Competitions",
+    "competition.teammates": "Teammates",
+    "competition.noCompetitions": "No competitions found. Create your team and start recruiting!",
+    "competition.competitionType": "Competition Type",
+    "competition.hackathon": "Hackathon",
+    "competition.caseCompetition": "Case Competition",
+    "competition.designChallenge": "Design Challenge",
+    "competition.other": "Other",
   },
   zh: {
     // Navigation
@@ -434,6 +453,25 @@ const translations = {
     "messages.replySentDesc": "你的回复已成功发送！",
     "messages.selectMessage": "选择一条消息查看",
     "messages.loadError": "加载消息失败",
+
+    // Cofounder Page
+    "cofounder.title": "寻找联合创始人",
+    "cofounder.description": "与企业家联系，共同建立你的初创公司",
+    "cofounder.startups": "初创公司",
+    "cofounder.cofounders": "联合创始人",
+    "cofounder.noStartups": "未找到初创公司。成为第一个创建的！",
+
+    // Competition Page
+    "competition.title": "寻找竞赛团队",
+    "competition.description": "加入黑客马拉松、案例竞赛和挑战的团队",
+    "competition.competitions": "竞赛",
+    "competition.teammates": "队友",
+    "competition.noCompetitions": "未找到竞赛。创建你的团队并开始招募！",
+    "competition.competitionType": "竞赛类型",
+    "competition.hackathon": "黑客马拉松",
+    "competition.caseCompetition": "案例竞赛",
+    "competition.designChallenge": "设计挑战",
+    "competition.other": "其他",
   },
 };
 

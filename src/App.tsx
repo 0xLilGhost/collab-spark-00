@@ -7,6 +7,8 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import Index from "./pages/Index";
 import Browse from "./pages/Browse";
+import Cofounder from "./pages/Cofounder";
+import Competition from "./pages/Competition";
 import Auth from "./pages/Auth";
 import Profile from "./pages/Profile";
 import Messages from "./pages/Messages";
@@ -25,6 +27,8 @@ const App = () => (
             <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/browse" element={<Browse />} />
+            <Route path="/cofounder" element={<Cofounder />} />
+            <Route path="/competition" element={<Competition />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/messages" element={<Messages />} />

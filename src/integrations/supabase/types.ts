@@ -141,6 +141,7 @@ export type Database = {
           pitch_deck_url: string | null
           stage: string | null
           team_size: number | null
+          type: string
           updated_at: string
           website_url: string | null
         }
@@ -159,6 +160,7 @@ export type Database = {
           pitch_deck_url?: string | null
           stage?: string | null
           team_size?: number | null
+          type?: string
           updated_at?: string
           website_url?: string | null
         }
@@ -177,6 +179,7 @@ export type Database = {
           pitch_deck_url?: string | null
           stage?: string | null
           team_size?: number | null
+          type?: string
           updated_at?: string
           website_url?: string | null
         }
