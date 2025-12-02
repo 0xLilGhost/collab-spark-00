@@ -45,7 +45,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       email,
       password,
       options: {
-        emailRedirectTo: `${window.location.origin}/`,
+        emailRedirectTo: `${window.location.origin}/onboarding`,
         data: {
           full_name: fullName,
         },
@@ -53,20 +53,34 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     });
     
     if (!error) {
-      navigate("/");
+      // New users always go to onboarding
+      navigate("/onboarding");
     }
     
     return { error };
   };
 
   const signIn = async (email: string, password: string) => {
-    const { error } = await supabase.auth.signInWithPassword({
+    const { error, data } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
     
-    if (!error) {
-      navigate("/");
+    if (!error && data.user) {
+      // Check if user has completed onboarding
+      setTimeout(async () => {
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("onboarding_completed")
+          .eq("id", data.user.id)
+          .maybeSingle();
+        
+        if (profile?.onboarding_completed) {
+          navigate("/browse");
+        } else {
+          navigate("/onboarding");
+        }
+      }, 0);
     }
     
     return { error };
