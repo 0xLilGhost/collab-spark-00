@@ -1,6 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { MapPin, Clock, Languages } from "lucide-react";
+import { Link } from "react-router-dom";
 import MessageDialog from "./MessageDialog";
 import { useLanguage } from "@/contexts/LanguageContext";
 
@@ -34,18 +35,19 @@ const ProfileCard = ({
   const { t } = useLanguage();
   return (
     <Card className="p-6 hover:shadow-card-hover transition-all duration-300 border-border">
-      <div className="flex items-start gap-4 mb-4">
-        <div className="h-16 w-16 rounded-full bg-gradient-hero flex-shrink-0" style={{
-          backgroundImage: `url(${avatar})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center'
-        }} />
-        <div className="flex-1 min-w-0">
-          <h3 className="font-semibold text-lg truncate">{name}</h3>
-          <p className="text-sm text-muted-foreground">{role}</p>
-          {school && <p className="text-xs text-muted-foreground mt-1">{school}</p>}
+      <Link to={`/user/${id}`} className="block">
+        <div className="flex items-start gap-4 mb-4">
+          <div className="h-16 w-16 rounded-full bg-gradient-hero flex-shrink-0" style={{
+            backgroundImage: `url(${avatar})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center'
+          }} />
+          <div className="flex-1 min-w-0">
+            <h3 className="font-semibold text-lg truncate hover:text-primary transition-colors">{name}</h3>
+            <p className="text-sm text-muted-foreground">{role}</p>
+            {school && <p className="text-xs text-muted-foreground mt-1">{school}</p>}
+          </div>
         </div>
-      </div>
       
       <p className="text-sm text-muted-foreground mb-4 line-clamp-2">{bio}</p>
       
@@ -64,18 +66,19 @@ const ProfileCard = ({
         </div>
       </div>
       
-      <div className="flex flex-wrap gap-2 mb-4">
-        {skills.slice(0, 4).map((skill, index) => (
-          <Badge key={index} variant="secondary" className="text-xs">
-            {skill}
-          </Badge>
-        ))}
-        {skills.length > 4 && (
-          <Badge variant="outline" className="text-xs">
-            +{skills.length - 4}
-          </Badge>
-        )}
-      </div>
+        <div className="flex flex-wrap gap-2 mb-4">
+          {skills.slice(0, 4).map((skill, index) => (
+            <Badge key={index} variant="secondary" className="text-xs">
+              {skill}
+            </Badge>
+          ))}
+          {skills.length > 4 && (
+            <Badge variant="outline" className="text-xs">
+              +{skills.length - 4}
+            </Badge>
+          )}
+        </div>
+      </Link>
       
       <MessageDialog
         recipientId={id}
