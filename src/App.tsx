@@ -12,6 +12,7 @@ import Competition from "./pages/Competition";
 import Auth from "./pages/Auth";
 import Profile from "./pages/Profile";
 import Messages from "./pages/Messages";
+import TeamDetail from "./pages/TeamDetail";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -29,6 +30,7 @@ const App = () => (
             <Route path="/browse" element={<Browse />} />
             <Route path="/cofounder" element={<Cofounder />} />
             <Route path="/competition" element={<Competition />} />
+            <Route path="/team/:id" element={<TeamDetail />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/messages" element={<Messages />} />

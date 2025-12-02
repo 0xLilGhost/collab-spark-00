@@ -1,9 +1,11 @@
+import { useNavigate } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Users, MapPin, Briefcase } from "lucide-react";
 
 interface TeamCardProps {
+  id: string;
   name: string;
   description: string;
   stage: string;
@@ -15,6 +17,7 @@ interface TeamCardProps {
 }
 
 const TeamCard = ({
+  id,
   name,
   description,
   stage,
@@ -24,6 +27,8 @@ const TeamCard = ({
   teamSize,
   logo,
 }: TeamCardProps) => {
+  const navigate = useNavigate();
+
   return (
     <Card className="p-6 hover:shadow-card-hover transition-all duration-300 border-border">
       <div className="flex items-start gap-4 mb-4">
@@ -73,7 +78,11 @@ const TeamCard = ({
         </div>
       </div>
       
-      <Button className="w-full" variant="default">
+      <Button 
+        className="w-full" 
+        variant="default"
+        onClick={() => navigate(`/team/${id}`)}
+      >
         View Team
       </Button>
     </Card>

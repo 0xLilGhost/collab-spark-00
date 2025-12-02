@@ -273,6 +273,17 @@ const translations = {
     "cancel": "Cancel",
     "success": "Success",
     "error": "Error",
+    
+    // Team Detail
+    "loading": "Loading...",
+    "back": "Back",
+    "description": "Description",
+    "lookingFor": "What We're Looking For",
+    "openRoles": "Open Roles",
+    "teamInfo": "Team Info",
+    "members": "members",
+    "founder": "Founder",
+    "sendMessage": "Send Message",
   },
   zh: {
     // Navigation
@@ -542,6 +553,17 @@ const translations = {
     "cancel": "取消",
     "success": "成功",
     "error": "错误",
+    
+    // Team Detail
+    "loading": "加载中...",
+    "back": "返回",
+    "description": "描述",
+    "lookingFor": "我们正在寻找",
+    "openRoles": "空缺职位",
+    "teamInfo": "团队信息",
+    "members": "成员",
+    "founder": "创始人",
+    "sendMessage": "发送消息",
   },
 };
 

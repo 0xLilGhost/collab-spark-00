@@ -279,6 +279,7 @@ const Browse = () => {
                   {filteredTeams.map((team) => (
                     <TeamCard
                       key={team.id}
+                      id={team.id}
                       name={team.name}
                       description={team.description || "No description"}
                       stage={team.stage || "Not specified"}
