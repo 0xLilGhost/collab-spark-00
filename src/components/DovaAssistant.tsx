@@ -1,15 +1,20 @@
-import { useState } from "react";
-import { X, Send } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
+import { X, Send, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useAuth } from "@/contexts/AuthContext";
+import { supabase } from "@/integrations/supabase/client";
 import dovaMascot from "@/assets/dova-mascot.png";
 
 const DovaAssistant = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<{ role: "user" | "assistant"; content: string }[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
   const { language } = useLanguage();
+  const { session } = useAuth();
 
   const bubbleText = language === "zh" 
     ? "和我聊聊，找到你的完美搭档！" 
@@ -19,29 +24,72 @@ const DovaAssistant = () => {
     ? "输入消息..." 
     : "Type a message...";
 
-  const handleSend = () => {
-    if (!message.trim()) return;
+  // Scroll to bottom when new messages arrive
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
+  // Load chat history when opening for authenticated users
+  useEffect(() => {
+    const loadHistory = async () => {
+      if (isOpen && session?.user?.id && messages.length === 0) {
+        const { data } = await supabase
+          .from("ai_messages")
+          .select("role, content")
+          .eq("user_id", session.user.id)
+          .order("created_at", { ascending: true })
+          .limit(20);
+        
+        if (data && data.length > 0) {
+          setMessages(data.map(m => ({ 
+            role: m.role as "user" | "assistant", 
+            content: m.content 
+          })));
+        }
+      }
+    };
+    loadHistory();
+  }, [isOpen, session?.user?.id]);
+
+  const handleSend = async () => {
+    if (!message.trim() || isLoading) return;
     
-    setMessages(prev => [...prev, { role: "user", content: message }]);
-    
-    // Simple mock response - can be replaced with actual AI integration
-    setTimeout(() => {
-      const responses = language === "zh" 
-        ? [
-            "你好！我是 Dova，你的 AI 助手。告诉我你在寻找什么样的合作伙伴？",
-            "我可以帮你找到志同道合的创业伙伴或比赛队友！",
-            "你对哪个领域感兴趣？技术、设计还是商业？"
-          ]
-        : [
-            "Hi! I'm Dova, your AI assistant. Tell me what kind of partner you're looking for?",
-            "I can help you find like-minded co-founders or competition teammates!",
-            "What field are you interested in? Tech, design, or business?"
-          ];
-      const randomResponse = responses[Math.floor(Math.random() * responses.length)];
-      setMessages(prev => [...prev, { role: "assistant", content: randomResponse }]);
-    }, 500);
-    
+    const userMessage = message.trim();
     setMessage("");
+    setMessages(prev => [...prev, { role: "user", content: userMessage }]);
+    setIsLoading(true);
+
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/dova-chat`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            ...(session?.access_token && {
+              Authorization: `Bearer ${session.access_token}`,
+            }),
+          },
+          body: JSON.stringify({ message: userMessage }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to get response");
+      }
+
+      setMessages(prev => [...prev, { role: "assistant", content: data.reply }]);
+    } catch (error) {
+      console.error("Error sending message:", error);
+      const errorMessage = language === "zh"
+        ? "抱歉，出了点问题。请稍后再试！"
+        : "Sorry, something went wrong. Please try again!";
+      setMessages(prev => [...prev, { role: "assistant", content: errorMessage }]);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -93,6 +141,14 @@ const DovaAssistant = () => {
                 </div>
               </div>
             ))}
+            {isLoading && (
+              <div className="flex justify-start">
+                <div className="bg-muted rounded-2xl px-3 py-2">
+                  <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />
+                </div>
+              </div>
+            )}
+            <div ref={messagesEndRef} />
           </div>
 
           {/* Input */}
@@ -103,10 +159,11 @@ const DovaAssistant = () => {
                 onChange={(e) => setMessage(e.target.value)}
                 placeholder={placeholderText}
                 className="flex-1"
-                onKeyDown={(e) => e.key === "Enter" && handleSend()}
+                onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && handleSend()}
+                disabled={isLoading}
               />
-              <Button size="icon" onClick={handleSend}>
-                <Send className="h-4 w-4" />
+              <Button size="icon" onClick={handleSend} disabled={isLoading || !message.trim()}>
+                {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
               </Button>
             </div>
           </div>
