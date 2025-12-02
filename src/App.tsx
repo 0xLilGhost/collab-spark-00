@@ -15,6 +15,7 @@ import Profile from "./pages/Profile";
 import Messages from "./pages/Messages";
 import TeamDetail from "./pages/TeamDetail";
 import Onboarding from "./pages/Onboarding";
+import UserProfile from "./pages/UserProfile";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -37,6 +38,7 @@ const App = () => (
               <Route path="/profile" element={<Profile />} />
               <Route path="/messages" element={<Messages />} />
               <Route path="/onboarding" element={<Onboarding />} />
+              <Route path="/user/:id" element={<UserProfile />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
