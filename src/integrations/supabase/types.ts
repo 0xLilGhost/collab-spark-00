@@ -38,6 +38,85 @@ export type Database = {
         }
         Relationships: []
       }
+      education: {
+        Row: {
+          created_at: string
+          degree: string | null
+          field_of_study: string | null
+          graduation_year: number | null
+          id: string
+          school: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          degree?: string | null
+          field_of_study?: string | null
+          graduation_year?: number | null
+          id?: string
+          school: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          degree?: string | null
+          field_of_study?: string | null
+          graduation_year?: number | null
+          id?: string
+          school?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "education_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      employment: {
+        Row: {
+          created_at: string
+          employer: string
+          end_date: string | null
+          id: string
+          is_current: boolean | null
+          position: string | null
+          start_date: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          employer: string
+          end_date?: string | null
+          id?: string
+          is_current?: boolean | null
+          position?: string | null
+          start_date?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          employer?: string
+          end_date?: string | null
+          id?: string
+          is_current?: boolean | null
+          position?: string | null
+          start_date?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "employment_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       messages: {
         Row: {
           created_at: string
@@ -70,79 +149,157 @@ export type Database = {
       }
       profiles: {
         Row: {
+          additional_info: string | null
           availability: string | null
           avatar_url: string | null
           bio: string | null
+          birthdate: string | null
+          cofounder_age_max: number | null
+          cofounder_age_min: number | null
+          cofounder_age_preference: string | null
+          cofounder_idea_preference: string | null
+          cofounder_interest_preference: string | null
+          cofounder_location_distance: number | null
+          cofounder_location_preference: string | null
+          cofounder_responsibility_areas: string[] | null
+          cofounder_technical_preference: string | null
+          cofounder_timing_preference: string | null
           created_at: string
           email: string
+          equity_expectation: string | null
           experience_level:
             | Database["public"]["Enums"]["experience_level"]
             | null
           full_name: string | null
+          fulltime_availability: string | null
+          gender: string | null
           github_url: string | null
           graduation_year: number | null
+          has_cofounder: boolean | null
+          has_startup_idea: string | null
+          hobbies: string | null
           hours_per_week: number | null
           id: string
+          impressive_accomplishment: string | null
           interests: string[] | null
+          is_technical: boolean | null
           languages: string[] | null
+          life_path: string | null
           linkedin_url: string | null
           location: string | null
+          onboarding_completed: boolean | null
+          onboarding_step: number | null
           portfolio_url: string | null
+          responsibility_areas: string[] | null
           role: string | null
           school: string | null
           skills: string[] | null
+          social_media_url: string | null
+          startup_ideas: string | null
           timezone: string | null
           updated_at: string
           user_type: Database["public"]["Enums"]["user_type"] | null
         }
         Insert: {
+          additional_info?: string | null
           availability?: string | null
           avatar_url?: string | null
           bio?: string | null
+          birthdate?: string | null
+          cofounder_age_max?: number | null
+          cofounder_age_min?: number | null
+          cofounder_age_preference?: string | null
+          cofounder_idea_preference?: string | null
+          cofounder_interest_preference?: string | null
+          cofounder_location_distance?: number | null
+          cofounder_location_preference?: string | null
+          cofounder_responsibility_areas?: string[] | null
+          cofounder_technical_preference?: string | null
+          cofounder_timing_preference?: string | null
           created_at?: string
           email: string
+          equity_expectation?: string | null
           experience_level?:
             | Database["public"]["Enums"]["experience_level"]
             | null
           full_name?: string | null
+          fulltime_availability?: string | null
+          gender?: string | null
           github_url?: string | null
           graduation_year?: number | null
+          has_cofounder?: boolean | null
+          has_startup_idea?: string | null
+          hobbies?: string | null
           hours_per_week?: number | null
           id: string
+          impressive_accomplishment?: string | null
           interests?: string[] | null
+          is_technical?: boolean | null
           languages?: string[] | null
+          life_path?: string | null
           linkedin_url?: string | null
           location?: string | null
+          onboarding_completed?: boolean | null
+          onboarding_step?: number | null
           portfolio_url?: string | null
+          responsibility_areas?: string[] | null
           role?: string | null
           school?: string | null
           skills?: string[] | null
+          social_media_url?: string | null
+          startup_ideas?: string | null
           timezone?: string | null
           updated_at?: string
           user_type?: Database["public"]["Enums"]["user_type"] | null
         }
         Update: {
+          additional_info?: string | null
           availability?: string | null
           avatar_url?: string | null
           bio?: string | null
+          birthdate?: string | null
+          cofounder_age_max?: number | null
+          cofounder_age_min?: number | null
+          cofounder_age_preference?: string | null
+          cofounder_idea_preference?: string | null
+          cofounder_interest_preference?: string | null
+          cofounder_location_distance?: number | null
+          cofounder_location_preference?: string | null
+          cofounder_responsibility_areas?: string[] | null
+          cofounder_technical_preference?: string | null
+          cofounder_timing_preference?: string | null
           created_at?: string
           email?: string
+          equity_expectation?: string | null
           experience_level?:
             | Database["public"]["Enums"]["experience_level"]
             | null
           full_name?: string | null
+          fulltime_availability?: string | null
+          gender?: string | null
           github_url?: string | null
           graduation_year?: number | null
+          has_cofounder?: boolean | null
+          has_startup_idea?: string | null
+          hobbies?: string | null
           hours_per_week?: number | null
           id?: string
+          impressive_accomplishment?: string | null
           interests?: string[] | null
+          is_technical?: boolean | null
           languages?: string[] | null
+          life_path?: string | null
           linkedin_url?: string | null
           location?: string | null
+          onboarding_completed?: boolean | null
+          onboarding_step?: number | null
           portfolio_url?: string | null
+          responsibility_areas?: string[] | null
           role?: string | null
           school?: string | null
           skills?: string[] | null
+          social_media_url?: string | null
+          startup_ideas?: string | null
           timezone?: string | null
           updated_at?: string
           user_type?: Database["public"]["Enums"]["user_type"] | null
