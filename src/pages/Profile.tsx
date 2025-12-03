@@ -37,16 +37,56 @@ const Profile = () => {
   }, [user]);
 
   const loadProfile = async () => {
+    if (!user?.id) return;
+    
     const { data, error } = await supabase
       .from("profiles")
       .select("*")
-      .eq("id", user?.id)
-      .single();
+      .eq("id", user.id)
+      .maybeSingle();
 
     if (error) {
       console.error("Error loading profile:", error);
-    } else {
+      toast({
+        title: "Error",
+        description: "Failed to load profile",
+        variant: "destructive",
+      });
+      // Set empty profile so page doesn't stay stuck in loading
+      setProfile({
+        full_name: "",
+        role: "",
+        school: "",
+        location: "",
+        timezone: "",
+        bio: "",
+        skills: [],
+        interests: [],
+        user_type: "both",
+        experience_level: "beginner",
+        availability: "",
+        linkedin_url: "",
+        github_url: "",
+      });
+    } else if (data) {
       setProfile(data);
+    } else {
+      // No profile found, set defaults
+      setProfile({
+        full_name: "",
+        role: "",
+        school: "",
+        location: "",
+        timezone: "",
+        bio: "",
+        skills: [],
+        interests: [],
+        user_type: "both",
+        experience_level: "beginner",
+        availability: "",
+        linkedin_url: "",
+        github_url: "",
+      });
     }
   };
 
